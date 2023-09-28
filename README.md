@@ -18,8 +18,8 @@ This is a basic implementation of the classic Tic Tac Toe game using HTML, CSS, 
 
 ## Screenshot
 
-![Tic Tac Toe Game Screenshot](screenshot.png)
+
 
 ## Usage
-![PLAY GAME]()
+
 
