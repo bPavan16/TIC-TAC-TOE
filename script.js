@@ -11,6 +11,7 @@ let Os = document.getElementById("Os");
 let Xs = document.getElementById("Xs");
 let turn = document.getElementById("turn");
 
+
 box.forEach((element) => {
   element.addEventListener("click", function (presser) {
     BoxIdx = parseInt(presser.target.id);
@@ -52,6 +53,18 @@ box.forEach((element) => {
   });
 });
 
+function makeWhite(i, j, k) {
+  document.getElementById(`${i}`).classList.add("white");
+  document.getElementById(`${j}`).classList.add("white");
+  document.getElementById(`${k}`).classList.add("white");
+}
+
+function clearWhite() {
+  for (let i = 1; i <= 9; i++) {
+    document.getElementById(`${i}`).classList.remove("white");
+  }
+}
+
 const checkWinner = () => {
   let i = 0;
   let j = 0;
@@ -65,19 +78,42 @@ const checkWinner = () => {
       check[i] != 0
     ) {
       console.log("all true");
+      makeWhite(i + 1, j + 1, k + 1);
       return check[i];
     }
   }
 
   for (i = 0, j = 3, k = 6; i <= 2; i += 1, j += 1, k += 1) {
-    if (check[i] == check[j] && check[k] == check[j] && check[i] == check[k])
+    if (
+      check[i] == check[j] &&
+      check[k] == check[j] &&
+      check[i] == check[k] &&
+      check[i] != 0
+    ) {
+      makeWhite(i + 1, j + 1, k + 1);
       return check[i];
+    }
   }
 
-  if (check[0] == check[4] && check[4] == check[8] && check[8] == check[0])
+  if (
+    check[0] == check[4] &&
+    check[4] == check[8] &&
+    check[8] == check[0] &&
+    check[4] != 0
+  ) {
+    makeWhite(1, 5, 9);
     return check[4];
-  if (check[2] == check[4] && check[4] == check[6] && check[6] == check[2])
+  }
+
+  if (
+    check[2] == check[4] &&
+    check[4] == check[6] &&
+    check[6] == check[2] &&
+    check[4] != 0
+  ) {
+    makeWhite(3, 5, 7);
     return check[4];
+  }
 
   return 0;
 };
@@ -89,6 +125,7 @@ const clearBoard = () => {
 
 clr.addEventListener("click", function () {
   clearBoard();
+  clearWhite();
   flag = true;
   if (ptr == 1) turn.innerText = "Game turn : Player X";
   else if (ptr == -1) turn.innerText = "Game turn : Player O";
